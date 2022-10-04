@@ -11,8 +11,13 @@ def test_transfer(contract):
     contract.transfer(accounts[1], 777, {'from' : accounts[0]})
     assert contract.balanceOf(accounts[1]) == 777
 
-def test_destruct(contract):
-    pass
+def test_mint(contract):
+    contract.mint(150, accounts[1], {'from' : accounts[0]})
+    assert contract.totalSupply() == 1333777 + 150
+    assert contract.balanceOf(accounts[1]) == 150
 
-def test_fallback(contract):
-    pass
+def test_burn(contract):
+    contract.burn(1000500, accounts[0], {"from" : accounts[0]})
+    assert contract.totalSupply() == 1333777 - 1000500
+    assert contract.balanceOf(accounts[0]) == 1333777 - 1000500
+

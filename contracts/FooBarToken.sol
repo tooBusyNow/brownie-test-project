@@ -16,6 +16,14 @@ contract FooBaseToken is ERC20, Ownable {
         selfdestruct(payable(msg.sender));
     }
 
+    function mint (uint256 amount, address account) onlyOwner external {
+        _mint(account, amount);
+    }
+
+    function burn (uint256 amount, address account) onlyOwner external {
+        _burn(account, amount);
+    }
+
     fallback() external {
         emit UnrecognizableCall('Caused unexpected behaviour');
     }
